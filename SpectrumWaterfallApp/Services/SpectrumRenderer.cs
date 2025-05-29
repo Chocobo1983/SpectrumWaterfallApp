@@ -16,6 +16,7 @@ public static class SpectrumRenderer
             int height = bitmap.PixelHeight;
             int width = bitmap.PixelWidth;
 
+            //Cleaning with black
             for (int y = 0; y < height; y++)
             {
                 byte* row = (byte*)buffer + y * stride;
@@ -30,6 +31,7 @@ public static class SpectrumRenderer
                 }
             }
 
+            //Horizontal Lines (dBm)
             for (int dbm = -120; dbm <= -20; dbm += 10)
             {
                 int y = (int)((1 - (dbm + 120f) / 100f) * (height - 1));
@@ -48,7 +50,7 @@ public static class SpectrumRenderer
                     }
                 }
             }
-
+            //Vertical lines (frequency)
             for (int mhz = 90; mhz <= 110; mhz += 2)
             {
                 int x = (int)((mhz - 90) / 20.0 * width);
@@ -65,7 +67,7 @@ public static class SpectrumRenderer
                     row[offset + 3] = 255;
                 }
             }
-
+            //Green Spectral Line
             int prevY = -1;
             for (int x = 0; x < width; x++)
             {

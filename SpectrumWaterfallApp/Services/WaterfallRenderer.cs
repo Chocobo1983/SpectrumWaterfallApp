@@ -17,12 +17,15 @@ public static class WaterfallRenderer
         int height = bitmap.PixelHeight;
         int stride = width * 4;
 
+        //Downward Shift
         for (int y = height - 1; y > 0; y--)
             Array.Copy(powerMap[y - 1], powerMap[y], width);
 
+        //Top row (new data)
         for (int x = 0; x < width; x++)
             powerMap[0][x] = spectrum[x];
 
+        //Updating the color map
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -38,7 +41,7 @@ public static class WaterfallRenderer
                 colorMap[y][offset + 3] = 255;
             }
         }
-
+        //Applying to Bitmap
         bitmap.Lock();
         for (int y = 0; y < height; y++)
         {
